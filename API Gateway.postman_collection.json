@@ -1,0 +1,109 @@
+{
+	"info": {
+		"_postman_id": "2bffe1b1-4f87-47e1-a00f-cedfafe1942a",
+		"name": "API Gateway",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ProcessPayment",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "test",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "test",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"Amount\":25,\n\t\"CardDetail\": {\n\t\t\"CardNumber\":\"1234567893692584\",\n\t\t\"CCV\":\"123\",\n\t\t\"CardType\":\"Visa\",\n\t\t\"Amount\":25,\n\t\t\"ExpiryDate\":\"12/11/1981\"\n\t}\n}"
+				},
+				"url": {
+					"raw": "https://localhost:44397/processpayment",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44397",
+					"path": [
+						"processpayment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RetrieveTransactionDetails",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "test",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "test",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "https://localhost:44397/retrievetransactiondetail?transactionId=003",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44397",
+					"path": [
+						"retrievetransactiondetail"
+					],
+					"query": [
+						{
+							"key": "transactionId",
+							"value": "003"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
