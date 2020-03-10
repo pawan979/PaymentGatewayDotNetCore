@@ -7,6 +7,7 @@ namespace PaymentGateway.Domain.Entities
     public class Transaction
     {
         public double Amount { get; set; }
+        public DateTime TransactionTimeStamp { get; set; }
         public CardDetails CardDetail { get; set; }
     }
 }

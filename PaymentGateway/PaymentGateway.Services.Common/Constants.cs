@@ -20,5 +20,8 @@ namespace PaymentGateway.Services.Common
         public const string TransactionNotAvailable = "The transaction could not be found.";
         public const string UserBankAccountNotFound= "User bank detail could not be retrieved.";
         public const string InsufficientAmountInAccount = "Insufficient fund in Account to perfrom transaction.";
+
+        public const string ErrorWhenRetrievingTransaction = "An error occured while retrieving the transaction.  Please refer to below {0}";
+        public const string ErrorWhenSavingTransaction = "An error occured while saving the transaction.  Please refer to stacktrace below {0}";
     }
 }

@@ -25,8 +25,11 @@ namespace PaymentGateway.Infrastructure.API.Controllers
                 if(bank != null)
                     response = bank.ProcessPayment(transaction);
 
+                Services.Common.CommonMethods.SaveTransaction(log, transaction, response);
+
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 if(bank == null)
                     response = new BankResponse() { Message = ex.Message , HttpStatusCode = 502 };

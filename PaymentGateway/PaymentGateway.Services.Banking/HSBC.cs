@@ -20,7 +20,7 @@ namespace PaymentGateway.Services.Bank
 
             try
             {
-
+                transaction.TransactionTimeStamp = DateTime.Now;
                 if (Common.Validation.IsCardExpired(_Log, Convert.ToDateTime(transaction.CardDetail.ExpiryDate)))
                 {
                     //Initiate Bank API call

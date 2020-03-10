@@ -21,6 +21,7 @@ namespace PaymentGateway.Services.Bank
 
             try
             {
+                transaction.TransactionTimeStamp = DateTime.Now;
                 //Call Bank API, for this POC, I mocked the response to be either pass or fail
                 if (Common.Validation.IsCardExpired(_Log, Convert.ToDateTime(transaction.CardDetail.ExpiryDate)))
                 {

@@ -112,7 +112,8 @@ namespace PaymentGateway.Test
             var expectedResponse = new BankResponse()
             {
                 HttpStatusCode = 400,
-                TransactionSucceed = false
+                TransactionSucceed = false,
+                Message = null,
             };
 
             bankResponse.Should().BeEquivalentTo(expectedResponse, options => options.Excluding(o => o.TransactionId));
@@ -121,20 +122,36 @@ namespace PaymentGateway.Test
         [Test]
         public void GetAvailableTransaction()
         {
+
+            var transactionAdd = new Transaction()
+            {
+                Amount = 10.00,
+                CardDetail = new CardDetails()
+                {
+                    CardNumber = "1234567893692584",
+                    CardType = "Visa",
+                    CCV = "123",
+                    ExpiryDate = "12/11/2020"
+                }
+            };
+
+            var bankResponse = _processPaymentController.Post(transactionAdd);
+
             SystemLog log = new SystemLog();
 
-            var transaction = _retrieveTransactionDetailController.Get("a2b6dac5-f4bf-45f1-9619-809f3c5a2309");
+            var transaction = _retrieveTransactionDetailController.Get(bankResponse.TransactionId.ToString());
 
             var expectedTransaction = new TransactionSummary()
             {
-                TransactionSucceed = true,
-                HttpStatusCode = 200,
-                TransactionId = "a2b6dac5-f4bf-45f1-9619-809f3c5a2309",
-                Amount = 112.5,
+                TransactionSucceed = bankResponse.TransactionSucceed,
+                HttpStatusCode = bankResponse.HttpStatusCode,
+                TransactionId = bankResponse.TransactionId.ToString(),
+                Amount = transactionAdd.Amount,
+                TransactionTimeStamp = transactionAdd.TransactionTimeStamp,
                 CardDetail = new CardDetails()
                 {
-                    CardNumber = CommonMethods.MaskCardNumber(log, "1236-5478-9369-8527"),
-                    CardType = "Visa"
+                    CardNumber = CommonMethods.MaskCardNumber(log, transactionAdd.CardDetail.CardNumber),
+                    CardType = transactionAdd.CardDetail.CardType
                 }
             };
 
